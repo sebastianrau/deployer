@@ -24,7 +24,7 @@ func UnmarschalGitUpdate(step DeployerStep) (*GitUpdate, error) {
 }
 
 func (s *GitUpdate) Exec(v io.Writer) error {
-	_, new, err := gittools.Update(
+	_, new, err := gittools.UpdateKeyFilename(
 		s.Url, s.Directory,
 		s.PrivateKeyFile,
 		s.Password,

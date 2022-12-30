@@ -9,57 +9,77 @@ import (
 	"github.com/sebastianRau/deployer/pkg/verbose"
 )
 
-func Update(url string, directory string, privateKeyFile string, password string, v io.Writer) (string, bool, error) {
+func UpdateKeyBytes(url string, directory string, pemBytes []byte, password string, v io.Writer) (string, bool, error) {
+
+	publicKeys, err := ssh.NewPublicKeys("git", pemBytes, os.ModeAppend.String())
+	if err != nil {
+		verbose.Fprintf(v, "generate publickeys failed: %s\n", err.Error())
+		return "", false, err
+	}
+
+	return updateGitRepo(url, directory, publicKeys, v)
+
+}
+
+func UpdateKeyFilename(url string, directory string, privateKeyFile string, password string, v io.Writer) (string, bool, error) {
 
 	_, err := os.Stat(privateKeyFile)
 	if err != nil {
 		verbose.Fprintf(v, "read file %s failed %s\n", privateKeyFile, err.Error())
 		return "", false, err
 	}
+
 	publicKeys, err := ssh.NewPublicKeysFromFile("git", privateKeyFile, password)
 	if err != nil {
 		verbose.Fprintf(v, "generate publickeys failed: %s\n", err.Error())
 		return "", false, err
 	}
 
-	// open git repo
-	verbose.Fprintf(v, "open git repo %s\n", directory)
-	r, err := git.PlainOpen(directory)
-	if err != nil {
-		verbose.Fprintf(v, "can't open repo %s\n", directory)
+	return updateGitRepo(url, directory, publicKeys, v)
 
-		// Clone the given repository to the given directory
-		verbose.Fprintf(v, "git clone %s into %s\n ", url, directory)
+}
 
-		r, err = git.PlainClone(directory, false, &git.CloneOptions{
-			Auth:     publicKeys,
-			URL:      url,
-			Progress: v,
+func updateGitRepo(url string, directory string, publicKeys *ssh.PublicKeys, v io.Writer) (string, bool, error) {
+	{
+		// open git repo
+		verbose.Fprintf(v, "open git repo %s\n", directory)
+		r, err := git.PlainOpen(directory)
+		if err != nil {
+			verbose.Fprintf(v, "can't open repo %s\n", directory)
+
+			// Clone the given repository to the given directory
+			verbose.Fprintf(v, "git clone %s into %s\n ", url, directory)
+
+			r, err = git.PlainClone(directory, false, &git.CloneOptions{
+				Auth:     publicKeys,
+				URL:      url,
+				Progress: v,
+			})
+			ref, _ := r.Head()
+
+			// repo was new cloned, no pull needed. in call cases it's a new hash
+			return ref.Hash().String(), true, nil
+		}
+
+		// Pull the latest changes from the origin remote and merge into the current branch
+		verbose.Fprintf(v, "git pull origin\n")
+		w, err := r.Worktree()
+
+		err = w.Pull(&git.PullOptions{
+			RemoteName: "origin",
+			Auth:       publicKeys,
+			Progress:   os.Stdout,
 		})
 		ref, _ := r.Head()
+		if err != nil {
+			if err.Error() == "already up-to-date" {
+				verbose.Fprintf(v, "%s\n", err.Error())
+				return ref.Hash().String(), false, nil
+			} else {
+				return "", false, nil
+			}
+		}
 
-		// repo was new cloned, no pull needed. in call cases it's a new hash
 		return ref.Hash().String(), true, nil
 	}
-
-	// Pull the latest changes from the origin remote and merge into the current branch
-	verbose.Fprintf(v, "git pull origin\n")
-	w, err := r.Worktree()
-
-	err = w.Pull(&git.PullOptions{
-		RemoteName: "origin",
-		Auth:       publicKeys,
-		Progress:   os.Stdout,
-	})
-	ref, _ := r.Head()
-	if err != nil {
-		if err.Error() == "already up-to-date" {
-			verbose.Fprintf(v, "%s\n", err.Error())
-			return ref.Hash().String(), false, nil
-		} else {
-			return "", false, nil
-		}
-	}
-
-	return ref.Hash().String(), true, nil
 }

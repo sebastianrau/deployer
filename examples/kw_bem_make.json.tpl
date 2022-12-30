@@ -1,30 +1,5 @@
 {
     "steps": [
-         {
-            "type": "gitUpdate",
-            "description": "Updating BasicScripts Repo",
-            "ignoreError": true,
-            "parameter": {
-                "url": 		        "git@github.com:SebastianRau/KW_BEM_BasicScripts.git",
-                "dir":              "./temp/KW_BEM_BasicScripts",
-                "keyfile":          "./test/keys/id_BasicScripts",
-                "password":         "",					
-                "ErrorOnNoUpdate": false
-            }
-        },
-        {
-            "type": "gitUpdate",
-            "description": "Updating Basic Missions Repo",
-            "ignoreError": true,
-            "parameter": {
-                "url": 		        "git@github.com:SebastianRau/KW_BEM_missions.git",
-                "dir":              "./temp/KW_BEM_missions",
-                "keyfile":          "./test/keys/id_BasicMissions",
-                "password":         "",					
-                "ErrorOnNoUpdate": false
-            }
-        },
-
         {
             "description": "Creating Map Folder",
             "type"       : "mkdir",
