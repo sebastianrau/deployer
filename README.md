@@ -8,7 +8,7 @@ Define deployment steps, like git sync, copy, delete, write File, replace text i
 ## Parameter
 - -config.file: The json config file, which defines all  steps
 - -config.data: The json data file, if golang templates are used
-- -config.output: Settting an ouptut file will parse the config and file into the output file. The config will be been executet.
+- -config.output: Settting an ouptut file will parse the config and file into the output file. The config will be been executed.
 - -v: Verbose Output from each step
 
 ## Config file
