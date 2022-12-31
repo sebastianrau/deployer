@@ -8,5 +8,6 @@
 (x)	GitUpdate
 (o)	SubList
 ( ) SymLinks
+( ) wget
 ( ) write log files
 
