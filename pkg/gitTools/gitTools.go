@@ -83,6 +83,9 @@ func updateGitRepo(url string, directory string, publicKeys *ssh.PublicKeys, v i
 	// Pull the latest changes from the origin remote and merge into the current branch
 	verbose.Fprintf(v, "git pull origin\n")
 	w, err := r.Worktree()
+	if err != nil {
+		return "", false, err
+	}
 
 	err = w.Pull(gitPullOptions)
 	ref, _ := r.Head()

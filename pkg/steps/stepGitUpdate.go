@@ -45,6 +45,9 @@ func (s *GitUpdate) Exec(v io.Writer) error {
 			s.Directory,
 			v,
 		)
+		if err != nil {
+			return err
+		}
 	}
 
 	if !new && s.ErrOnNoUpdate {
