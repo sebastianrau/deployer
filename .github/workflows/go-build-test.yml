@@ -1,4 +1,4 @@
-name: Go CI
+name: Go Build
 
 on:
   pull_request:
