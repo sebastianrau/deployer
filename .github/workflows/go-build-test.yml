@@ -33,5 +33,5 @@ jobs:
       uses: shoukoo/golang-pipeline/go1.19/linter@master
       with:
         GOLINT: on
-        GOLINTPATH: .
+        GOLINTPATH: cmd/deployer/
         MISSPELL: on
