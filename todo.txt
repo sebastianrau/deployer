@@ -1,11 +1,11 @@
 (x)	CreateFolder
-(!)	Copy
+(x)	Copy
 (x)	Delete
 (x)	ReplaceText
 (x) FileWriter
 (o)	Exec
 (o)	ExecEach
-(x)	GitUpdate
+(x)	GitUpdate // TODO ensure ssh known host
 (o)	SubList
 ( ) SymLinks
 ( ) wget

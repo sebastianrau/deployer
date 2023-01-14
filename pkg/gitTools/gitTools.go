@@ -74,7 +74,10 @@ func updateGitRepo(url string, directory string, publicKeys *ssh.PublicKeys, v i
 			return "", false, err
 		}
 
-		ref, _ := r.Head()
+		ref, err := r.Head()
+		if err != nil {
+			return "", false, err
+		}
 
 		// repo was new cloned, no pull needed. in call cases it's a new hash
 		return ref.Hash().String(), true, nil
