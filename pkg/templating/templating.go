@@ -71,6 +71,7 @@ func ParseTemplateJsonData(templ string, data string) (string, error) {
 		"hasNext":   hasNext,
 		"isLast":    isLast,
 		"arrayjoin": arrayJoin,
+		"join":      strings.Join,
 	}
 
 	t, err := template.New("").Funcs(funcMap).Parse(string(templateBytes))
