@@ -79,6 +79,14 @@ func (c *JsonConfig) MarshalIndent(ident string) (string, error) {
 }
 
 func (c *JsonConfig) Exceute(out io.Writer, verboseFlag bool) error {
+	return c.exec(out, verboseFlag, false)
+}
+
+func (c *JsonConfig) ExceuteDirectVerbose(out io.Writer) error {
+	return c.exec(out, false, true)
+}
+
+func (c *JsonConfig) exec(out io.Writer, verbose bool, directOut bool) error {
 
 	for _, s := range c.Steps {
 
@@ -104,7 +112,7 @@ func (c *JsonConfig) Exceute(out io.Writer, verboseFlag bool) error {
 		case GitUpdateType:
 			ex, err = UnmarschalGitUpdate(s)
 		case SubStepsType:
-			ex, err = UnmarschalSubSteps(s, out, verboseFlag)
+			ex, err = UnmarschalSubSteps(s, out, verbose)
 
 		default:
 			err = fmt.Errorf("Cant Parse type: %s\n", s.Type)
@@ -113,12 +121,13 @@ func (c *JsonConfig) Exceute(out io.Writer, verboseFlag bool) error {
 
 		// Exec Step
 		if ex != nil {
-
 			var write io.Writer
 			v := bytes.NewBufferString("")
 
-			if verboseFlag {
+			if verbose {
 				write = v
+			} else if directOut {
+				write = out
 			} else {
 				write = nil
 			}
@@ -130,7 +139,7 @@ func (c *JsonConfig) Exceute(out io.Writer, verboseFlag bool) error {
 				return err
 			}
 
-			if verboseFlag {
+			if verbose {
 				_, err = out.Write(v.Bytes())
 				if err != nil {
 					panic(err.Error())
