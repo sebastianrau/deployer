@@ -47,6 +47,11 @@ a json object which contains all used varables for the template
 
 ``` isLast(array []interface{}, idx int) bool  ``` check if index is equal to last arry index
 
+``` join(array []sring, separator string) string  ``` makes string out of an sring array, using a given separator (no separator after last emelemt)
+
+
+``` arrayjoin(array []interface{}, separator string, addLast bool) string  ``` makes string out of an array, using a given separator
+
 Example:
 Add , to all except the last entry 
 ```
@@ -191,7 +196,8 @@ parameter: {
 ### GitUpdate    
 Clones or pulls a git repository via ssh from given url.
 
-It uses a ssh private keyfile for auth (e.g. a deployment key).
+
+It uses a no auth (with https url) or a ssh private keyfile (use ssh url type!) for auth (e.g. a deployment key).
 
 The option ```"errorOnNoUpdate": true``` will stop execution if ```"ignoreError"``` is set to ```false```.
 

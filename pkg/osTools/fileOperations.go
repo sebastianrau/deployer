@@ -41,7 +41,10 @@ func Copy(src string, dest string, ignoreDotFiles bool, v io.Writer) error {
 	destIsFolder, err := isFolder(dest)
 	if err != nil {
 		destIsFolder = false
-		ensureDir(filepath.Dir(dest), v)
+		err = ensureDir(filepath.Dir(dest), v)
+		if err != nil {
+			return err
+		}
 	}
 
 	if sourceHasWildcard || sourceIsFolder {
@@ -54,7 +57,10 @@ func Copy(src string, dest string, ignoreDotFiles bool, v io.Writer) error {
 			if destIsFolder {
 				_, postPath, _ := strings.Cut(filepath.Dir(file), filepath.Dir(src))
 				target := filepath.Clean(dest + postPath + "/" + filepath.Base(file))
-				Copy(file, target, ignoreDotFiles, v)
+				err := Copy(file, target, ignoreDotFiles, v)
+				if err != nil {
+					return err
+				}
 			}
 		}
 	} else {
@@ -230,4 +236,8 @@ func listFiles(pattern string, ignoreDotFiles bool) ([]string, error) {
 	})
 
 	return files, err
+}
+
+func MakeSymlink(src string, dest string, v io.Writer) error {
+	return os.Symlink(src, dest)
 }
