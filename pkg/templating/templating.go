@@ -14,15 +14,12 @@ import (
 func add(a, b int) int {
 	return a + b
 }
-
 func sub(a, b int) int {
 	return a - b
 }
-
 func hasNext(array []interface{}, idx int) bool {
 	return idx < len(array)-1
 }
-
 func isLast(array []interface{}, idx int) bool {
 	return idx == len(array)-1
 }
@@ -40,12 +37,10 @@ func arrayJoin(array []interface{}, separator string, addLast bool) string {
 }
 
 func ParseTemplateJsonData(templ string, data string) (string, error) {
-
 	m := map[string]interface{}{}
 
 	if data != "" {
 		// parse data json file to map
-
 		jsonFile, err := os.Open(data)
 		if err != nil {
 			return "", err

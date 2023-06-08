@@ -237,3 +237,7 @@ func listFiles(pattern string, ignoreDotFiles bool) ([]string, error) {
 
 	return files, err
 }
+
+func MakeSymlink(src string, dest string, v io.Writer) error {
+	return os.Symlink(src, dest)
+}
