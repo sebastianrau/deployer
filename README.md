@@ -47,6 +47,9 @@ a json object which contains all used varables for the template
 
 ``` isLast(array []interface{}, idx int) bool  ``` check if index is equal to last arry index
 
+``` join(array []sring, separator string) string  ``` makes string out of an sring array, using a given separator (no separator after last emelemt)
+
+
 ``` arrayjoin(array []interface{}, separator string, addLast bool) string  ``` makes string out of an array, using a given separator
 
 Example:
