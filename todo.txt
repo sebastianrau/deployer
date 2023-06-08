@@ -7,7 +7,7 @@
 (o)	ExecEach
 (x)	GitUpdate // TODO ensure ssh known host
 (o)	SubList
-( ) SymLinks
+(x) SymLinks
 ( ) wget
 ( ) write log files
 
