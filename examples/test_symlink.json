@@ -1,0 +1,14 @@
+{
+    "steps": [
+         {
+            "type": "symlink",
+            "description": "Create Symlink",
+            "ignoreError": false,
+            "parameter" :  {
+                "src_dest": {
+                    "examples" : "testing"
+                }
+            }
+        }
+    ]
+}

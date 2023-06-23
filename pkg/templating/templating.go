@@ -9,6 +9,8 @@ import (
 
 	"os"
 	"text/template"
+
+	yaml "gopkg.in/yaml.v2"
 )
 
 func add(a, b int) int {
@@ -41,15 +43,19 @@ func ParseTemplateJsonData(templ string, data string) (string, error) {
 
 	if data != "" {
 		// parse data json file to map
-		jsonFile, err := os.Open(data)
+		dataFile, err := os.Open(data)
 		if err != nil {
 			return "", err
 		}
 
-		dataBytes, _ := io.ReadAll(jsonFile)
+		dataBytes, _ := io.ReadAll(dataFile)
 		if err := json.Unmarshal(dataBytes, &m); err != nil {
-			return "", err
+			err := yaml.Unmarshal(dataBytes, &m)
+			if err != nil {
+				return "", err
+			}
 		}
+
 	} else {
 		// parse empty json as data
 		if err := json.Unmarshal([]byte("{ }"), &m); err != nil {
