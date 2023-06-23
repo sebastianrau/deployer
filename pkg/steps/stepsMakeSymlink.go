@@ -2,6 +2,7 @@ package steps
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 
 	ostools "github.com/sebastianRau/deployer/pkg/osTools"
@@ -24,6 +25,7 @@ func UnmarschalCreateSymlink(step DeployerStep) (*CreateSymlink, error) {
 func (s *CreateSymlink) Exec(v io.Writer) error {
 	for src, dst := range s.SrcDestMap {
 		err := ostools.MakeSymlink(src, dst, v)
+		fmt.Printf("creating symlink %s --> %s\n", src, dst)
 
 		if err != nil {
 			if s.ignoreError {
