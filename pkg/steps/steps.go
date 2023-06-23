@@ -12,15 +12,16 @@ import (
 type StepTypes string
 
 const (
-	CreateFolderType StepTypes = "mkdir"
-	CopyType         StepTypes = "cp"
-	DeleteType       StepTypes = "rm"
-	ReplaceTextType  StepTypes = "replaceText"
-	FileWriterType   StepTypes = "fileWriter"
-	ExecType         StepTypes = "exec"
-	EcecEachFileType StepTypes = "execEachFile"
-	GitUpdateType    StepTypes = "gitUpdate"
-	SubStepsType     StepTypes = "subSteps"
+	CreateFolderType  StepTypes = "mkdir"
+	CopyType          StepTypes = "cp"
+	DeleteType        StepTypes = "rm"
+	ReplaceTextType   StepTypes = "replaceText"
+	FileWriterType    StepTypes = "fileWriter"
+	ExecType          StepTypes = "exec"
+	EcecEachFileType  StepTypes = "execEachFile"
+	GitUpdateType     StepTypes = "gitUpdate"
+	SubStepsType      StepTypes = "subSteps"
+	CreateSymlinkType StepTypes = "symlink"
 )
 
 type DeployerStep struct {
@@ -113,9 +114,11 @@ func (c *JsonConfig) exec(out io.Writer, verbose bool, directOut bool) error {
 			ex, err = UnmarschalGitUpdate(s)
 		case SubStepsType:
 			ex, err = UnmarschalSubSteps(s, out, verbose)
+		case CreateSymlinkType:
+			ex, err = UnmarschalCreateSymlink(s)
 
 		default:
-			err = fmt.Errorf("Cant Parse type: %s\n", s.Type)
+			err = fmt.Errorf("cant parse type: %s", s.Type)
 			ex = nil
 		}
 

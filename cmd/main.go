@@ -16,9 +16,9 @@ var (
 
 func main() {
 	var (
-		configTemplateFile = flag.String("config.file", "./test/kw_bem_make.json.tpl", "Config File") //toDo remove default
-		configDataFile     = flag.String("config.data", "./test/kw_bem_make.data.json", "Data file")
-		configOutputFile   = flag.String("config.output", "", "Output json file")
+		configTemplateFile = flag.String("configFile", "", "Config File") //toDo remove default
+		configDataFile     = flag.String("configData", "", "Data file")
+		configOutputFile   = flag.String("configOutput", "", "Output json file")
 		verbose            = flag.Bool("v", false, "verbose output")
 	)
 	flag.Parse()

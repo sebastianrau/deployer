@@ -1,36 +1,11 @@
 {
     "steps": [
-         {
-            "type": "gitUpdate",
-            "description": "Updating BasicScripts Repo",
-            "ignoreError": true,
-            "parameter": {
-                "url": 		        "git@github.com:SebastianRau/KW_BEM_BasicScripts.git",
-                "dir":              "./temp/KW_BEM_BasicScripts",
-                "keyfile":          "./test/keys/id_BasicScripts",
-                "password":         "",					
-                "ErrorOnNoUpdate": false
-            }
-        },
-        {
-            "type": "gitUpdate",
-            "description": "Updating Basic Missions Repo",
-            "ignoreError": true,
-            "parameter": {
-                "url": 		        "git@github.com:SebastianRau/KW_BEM_missions.git",
-                "dir":              "./temp/KW_BEM_missions",
-                "keyfile":          "./test/keys/id_BasicMissions",
-                "password":         "",					
-                "ErrorOnNoUpdate": false
-            }
-        },
-
         {
             "description": "Creating Map Folder",
             "type"       : "mkdir",
             "ignoreError": false,
-            "properties" : {
-                "folderNames": [
+            "parameter" : {
+                "destination": [
                     "./BasicMissions/KW_BEM.altis/kw/" ,
                     "./BasicMissions/KW_BEM.chernarus_summer/kw/" ,
                     "./BasicMissions/KW_BEM.chernarus_winter/kw/" ,
@@ -60,11 +35,11 @@
                 "description": "Copy Files for Altis",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.altis/"     : "./BasicMissions/KW_BEM.altis/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.altis/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.altis/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.altis/*"     : "./BasicMissions/KW_BEM.altis/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.altis/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.altis/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -73,7 +48,7 @@
                 "description": "Customize description.ext for altis",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.altis/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map altis",
@@ -94,11 +69,11 @@
                 "description": "Copy Files for Chernarus Summer",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.chernarus_summer/"     : "./BasicMissions/KW_BEM.chernarus_summer/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.chernarus_summer/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.chernarus_summer/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.chernarus_summer/*"     : "./BasicMissions/KW_BEM.chernarus_summer/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.chernarus_summer/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.chernarus_summer/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -107,7 +82,7 @@
                 "description": "Customize description.ext for chernarus_summer",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.chernarus_summer/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map chernarus_summer",
@@ -128,11 +103,11 @@
                 "description": "Copy Files for Chernarus Winter",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.chernarus_winter/"     : "./BasicMissions/KW_BEM.chernarus_winter/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.chernarus_winter/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.chernarus_winter/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.chernarus_winter/*"     : "./BasicMissions/KW_BEM.chernarus_winter/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.chernarus_winter/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.chernarus_winter/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -141,7 +116,7 @@
                 "description": "Customize description.ext for chernarus_winter",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.chernarus_winter/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map chernarus_winter",
@@ -162,11 +137,11 @@
                 "description": "Copy Files for Livonia",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.Enoch/"     : "./BasicMissions/KW_BEM.Enoch/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.Enoch/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.Enoch/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.Enoch/*"     : "./BasicMissions/KW_BEM.Enoch/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.Enoch/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.Enoch/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -175,7 +150,7 @@
                 "description": "Customize description.ext for Enoch",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.Enoch/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map Enoch",
@@ -196,11 +171,11 @@
                 "description": "Copy Files for Lythium",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.lythium/"     : "./BasicMissions/KW_BEM.lythium/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.lythium/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.lythium/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.lythium/*"     : "./BasicMissions/KW_BEM.lythium/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.lythium/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.lythium/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -209,7 +184,7 @@
                 "description": "Customize description.ext for lythium",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.lythium/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map lythium",
@@ -230,11 +205,11 @@
                 "description": "Copy Files for Malden",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.malden/"     : "./BasicMissions/KW_BEM.malden/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.malden/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.malden/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.malden/*"     : "./BasicMissions/KW_BEM.malden/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.malden/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.malden/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -243,7 +218,7 @@
                 "description": "Customize description.ext for malden",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.malden/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map malden",
@@ -264,11 +239,11 @@
                 "description": "Copy Files for Takistan Mountains",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.Mountains_ACR/"     : "./BasicMissions/KW_BEM.Mountains_ACR/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.Mountains_ACR/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.Mountains_ACR/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.Mountains_ACR/*"     : "./BasicMissions/KW_BEM.Mountains_ACR/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.Mountains_ACR/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.Mountains_ACR/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -277,7 +252,7 @@
                 "description": "Customize description.ext for Mountains_ACR",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.Mountains_ACR/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map Mountains_ACR",
@@ -298,11 +273,11 @@
                 "description": "Copy Files for Porto",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.porto/"     : "./BasicMissions/KW_BEM.porto/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.porto/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.porto/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.porto/*"     : "./BasicMissions/KW_BEM.porto/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.porto/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.porto/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -311,7 +286,7 @@
                 "description": "Customize description.ext for porto",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.porto/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map porto",
@@ -332,11 +307,11 @@
                 "description": "Copy Files for Proving Grounds",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.ProvingGrounds_PMC/"     : "./BasicMissions/KW_BEM.ProvingGrounds_PMC/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.ProvingGrounds_PMC/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.ProvingGrounds_PMC/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.ProvingGrounds_PMC/*"     : "./BasicMissions/KW_BEM.ProvingGrounds_PMC/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.ProvingGrounds_PMC/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.ProvingGrounds_PMC/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -345,7 +320,7 @@
                 "description": "Customize description.ext for ProvingGrounds_PMC",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.ProvingGrounds_PMC/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map ProvingGrounds_PMC",
@@ -366,11 +341,11 @@
                 "description": "Copy Files for Sahrani",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.sara_dbe1/"     : "./BasicMissions/KW_BEM.sara_dbe1/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.sara_dbe1/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.sara_dbe1/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.sara_dbe1/*"     : "./BasicMissions/KW_BEM.sara_dbe1/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.sara_dbe1/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.sara_dbe1/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -379,7 +354,7 @@
                 "description": "Customize description.ext for sara_dbe1",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.sara_dbe1/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map sara_dbe1",
@@ -400,11 +375,11 @@
                 "description": "Copy Files for Stratis",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.stratis/"     : "./BasicMissions/KW_BEM.stratis/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.stratis/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.stratis/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.stratis/*"     : "./BasicMissions/KW_BEM.stratis/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.stratis/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.stratis/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -413,7 +388,7 @@
                 "description": "Customize description.ext for stratis",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.stratis/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map stratis",
@@ -434,11 +409,11 @@
                 "description": "Copy Files for Takistan",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.takistan/"     : "./BasicMissions/KW_BEM.takistan/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.takistan/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.takistan/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.takistan/*"     : "./BasicMissions/KW_BEM.takistan/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.takistan/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.takistan/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -447,7 +422,7 @@
                 "description": "Customize description.ext for takistan",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.takistan/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map takistan",
@@ -468,11 +443,11 @@
                 "description": "Copy Files for Tanoa",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.tanoa/"     : "./BasicMissions/KW_BEM.tanoa/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.tanoa/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.tanoa/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.tanoa/*"     : "./BasicMissions/KW_BEM.tanoa/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.tanoa/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.tanoa/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -481,7 +456,7 @@
                 "description": "Customize description.ext for tanoa",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.tanoa/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map tanoa",
@@ -502,11 +477,11 @@
                 "description": "Copy Files for Anizay",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.tem_anizay/"     : "./BasicMissions/KW_BEM.tem_anizay/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.tem_anizay/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.tem_anizay/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.tem_anizay/*"     : "./BasicMissions/KW_BEM.tem_anizay/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.tem_anizay/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.tem_anizay/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -515,7 +490,7 @@
                 "description": "Customize description.ext for tem_anizay",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.tem_anizay/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map tem_anizay",
@@ -536,11 +511,11 @@
                 "description": "Copy Files for Weferlingen Summer",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.gm_weferlingen_summer/"     : "./BasicMissions/KW_BEM.gm_weferlingen_summer/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.gm_weferlingen_summer/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.gm_weferlingen_summer/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.gm_weferlingen_summer/*"     : "./BasicMissions/KW_BEM.gm_weferlingen_summer/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.gm_weferlingen_summer/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.gm_weferlingen_summer/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -549,7 +524,7 @@
                 "description": "Customize description.ext for gm_weferlingen_summer",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.gm_weferlingen_summer/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map gm_weferlingen_summer",
@@ -570,11 +545,11 @@
                 "description": "Copy Files for Virolahti",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.vt7/"     : "./BasicMissions/KW_BEM.vt7/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.vt7/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.vt7/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.vt7/*"     : "./BasicMissions/KW_BEM.vt7/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.vt7/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.vt7/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -583,7 +558,7 @@
                 "description": "Customize description.ext for vt7",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.vt7/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map vt7",
@@ -604,11 +579,11 @@
                 "description": "Copy Files for Bystrica",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.Woodland_ACR/"     : "./BasicMissions/KW_BEM.Woodland_ACR/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.Woodland_ACR/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.Woodland_ACR/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.Woodland_ACR/*"     : "./BasicMissions/KW_BEM.Woodland_ACR/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.Woodland_ACR/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.Woodland_ACR/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -617,7 +592,7 @@
                 "description": "Customize description.ext for Woodland_ACR",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.Woodland_ACR/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map Woodland_ACR",
@@ -638,11 +613,11 @@
                 "description": "Copy Files for Zargabad",
                 "type"       : "cp",
                 "ignoreError": false,
-                "properties" : {
-                    "source_dest": {
-                        "./BasicMissions/temp/KW_BEM_missions/KW_BEM.zargabad/"     : "./BasicMissions/KW_BEM.zargabad/",
-                        "./BasicMissions/temp/KW_BEM_Missions/BasicFiles/"                      : "./BasicMissions/KW_BEM.zargabad/",
-                        "./BasicMissions/temp/KW_BEM_BasicScripts/"                             : "./BasicMissions/KW_BEM.zargabad/kw/"
+                "parameter" : {
+                    "src_dest": {
+                        "./temp/KW_BEM_missions/KW_BEM.zargabad/*"     : "./BasicMissions/KW_BEM.zargabad/",
+                        "./temp/KW_BEM_Missions/BasicFiles/*"                      : "./BasicMissions/KW_BEM.zargabad/",
+                        "./temp/KW_BEM_BasicScripts/*"                             : "./BasicMissions/KW_BEM.zargabad/kw/"
                     },
                     "ignoreDotFiles": true
                 }
@@ -651,7 +626,7 @@
                 "description": "Customize description.ext for zargabad",
                 "type"       : "replaceText",
                 "ignoreError": false,
-                "properties" : {
+                "parameter" : {
                     "destination": "./BasicMissions/KW_BEM.zargabad/description.ext",
                     "map"        : {
                         "%%%briefingName%%%"              	: "KW Basic Event Map zargabad",

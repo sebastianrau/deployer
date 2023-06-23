@@ -153,7 +153,7 @@ executes an external command
 ``` 	
 parameter: {
     "command": "chmod",
-    "path"; "/home/foo/bar"
+    "path": "/home/foo/bar"
     "params":[
        "+x",
        "runServer.sh"

@@ -2,7 +2,10 @@ module github.com/sebastianRau/deployer
 
 go 1.19
 
-require github.com/go-git/go-git/v5 v5.7.0
+require (
+	github.com/go-git/go-git/v5 v5.7.0
+	gopkg.in/yaml.v2 v2.4.0
+)
 
 require (
 	github.com/Microsoft/go-winio v0.5.2 // indirect
