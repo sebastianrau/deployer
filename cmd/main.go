@@ -6,7 +6,6 @@ import (
 	"os"
 	"time"
 
-	filetools "github.com/sebastianRau/deployer/pkg/fileTools"
 	"github.com/sebastianRau/deployer/pkg/steps"
 )
 
@@ -20,6 +19,7 @@ func main() {
 		configDataFile     = flag.String("configData", "", "Data file")
 		configOutputFile   = flag.String("configOutput", "", "Output json file")
 		verbose            = flag.Bool("v", false, "verbose output")
+		print              = flag.Bool("print", false, "print yaml only")
 	)
 	flag.Parse()
 
@@ -32,14 +32,22 @@ func main() {
 	}
 
 	// read and unmarshal template
-	st, err := steps.UnmarshalConfigTemplate(*configTemplateFile, *configDataFile)
+	configSteps, err := steps.UnmarshalConfigTemplate(*configTemplateFile, *configDataFile)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
 	if *configOutputFile != "" {
-		err := filetools.ParseTemplate(*configTemplateFile, *configDataFile, *configOutputFile, os.Stdout)
+		err := configSteps.WriteConfigToFile(*configOutputFile)
+		if err != nil {
+			panic(err)
+		}
+		os.Exit(0)
+	}
+
+	if *print {
+		err := configSteps.WriteConfigTo(os.Stdout)
 		if err != nil {
 			panic(err)
 		}
@@ -49,7 +57,7 @@ func main() {
 	fmt.Printf("Deployer v%s\n", version)
 
 	start := time.Now()
-	err = st.Exceute(os.Stdout, *verbose)
+	err = configSteps.Exceute(os.Stdout, *verbose)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
