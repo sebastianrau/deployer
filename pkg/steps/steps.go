@@ -36,6 +36,11 @@ type DeployerStep struct {
 	IgnoreError bool   `json:"ignoreError" yaml:"ignoreError"`
 }
 
+// Exec implements ExceutableStep
+func (s DeployerStep) Exec(v io.Writer) error {
+	return s.Exec(v)
+}
+
 type JsonConfig struct {
 	Steps []DeployerStep `json:"steps" yaml:"steps"`
 }
@@ -130,34 +135,29 @@ func (c *JsonConfig) exec(out io.Writer, verbose bool, directOut bool) error {
 
 	for _, s := range c.Steps {
 
-		var ex ExceutableStep
 		var err error
+		var write io.Writer
+		v := bytes.NewBufferString("")
 
-		// Exec Step
-		if ex != nil {
-			var write io.Writer
-			v := bytes.NewBufferString("")
+		if verbose {
+			write = v
+		} else if directOut {
+			write = out
+		} else {
+			write = nil
+		}
 
-			if verbose {
-				write = v
-			} else if directOut {
-				write = out
-			} else {
-				write = nil
-			}
+		fmt.Fprint(out, formatStep(s.Description, s.Type, (err != nil), 80))
+		err = s.Exec(write)
+		if err != nil && !s.IgnoreError {
+			fmt.Fprintf(out, "%v\n", err.Error())
+			return err
+		}
 
-			fmt.Fprint(out, formatStep(s.Description, s.Type, (err != nil), 80))
-			err = ex.Exec(write)
-			if err != nil && !s.IgnoreError {
-				fmt.Fprintf(out, "%v\n", err.Error())
-				return err
-			}
-
-			if verbose {
-				_, err = out.Write(v.Bytes())
-				if err != nil {
-					panic(err.Error())
-				}
+		if verbose {
+			_, err = out.Write(v.Bytes())
+			if err != nil {
+				panic(err.Error())
 			}
 		}
 
