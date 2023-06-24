@@ -1,0 +1,456 @@
+steps:
+    - type: mkdir
+      parameter:
+        destination:
+            - ./BasicMissions/KW_BEM.altis/kw/
+            - ./BasicMissions/KW_BEM.chernarus_summer/kw/
+            - ./BasicMissions/KW_BEM.chernarus_winter/kw/
+            - ./BasicMissions/KW_BEM.Enoch/kw/
+            - ./BasicMissions/KW_BEM.lythium/kw/
+            - ./BasicMissions/KW_BEM.malden/kw/
+            - ./BasicMissions/KW_BEM.Mountains_ACR/kw/
+            - ./BasicMissions/KW_BEM.porto/kw/
+            - ./BasicMissions/KW_BEM.ProvingGrounds_PMC/kw/
+            - ./BasicMissions/KW_BEM.sara_dbe1/kw/
+            - ./BasicMissions/KW_BEM.stratis/kw/
+            - ./BasicMissions/KW_BEM.takistan/kw/
+            - ./BasicMissions/KW_BEM.tanoa/kw/
+            - ./BasicMissions/KW_BEM.tem_anizay/kw/
+            - ./BasicMissions/KW_BEM.gm_weferlingen_summer/kw/
+            - ./BasicMissions/KW_BEM.vt7/kw/
+            - ./BasicMissions/KW_BEM.Woodland_ACR/kw/
+            - ./BasicMissions/KW_BEM.zargabad/kw/
+      description: Creating Map Folder
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.altis/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.altis/
+            ./temp/KW_BEM_missions/KW_BEM.altis/*: ./BasicMissions/KW_BEM.altis/
+      description: Copy Files for Altis
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.altis/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map altis
+            '%%%civilian_type%%%': european_west
+            '%%%civilian_weapons%%%': "1"
+            '%%%civilian_weapons_chance%%%': "25"
+            '%%%loadout_start_equipped%%%': "0"
+            '%%%loadout_type%%%': seals-desert
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map altis'
+            '%%%onLoadName%%%': KW Basic Event Map altis
+      description: Customize description.ext for altis
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.chernarus_summer/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.chernarus_summer/
+            ./temp/KW_BEM_missions/KW_BEM.chernarus_summer/*: ./BasicMissions/KW_BEM.chernarus_summer/
+      description: Copy Files for Chernarus Summer
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.chernarus_summer/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map chernarus_summer
+            '%%%civilian_type%%%': european_east
+            '%%%civilian_weapons%%%': "1"
+            '%%%civilian_weapons_chance%%%': "45"
+            '%%%loadout_start_equipped%%%': "0"
+            '%%%loadout_type%%%': bw-forest
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map chernarus_summer'
+            '%%%onLoadName%%%': KW Basic Event Map chernarus_summer
+      description: Customize description.ext for chernarus_summer
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.chernarus_winter/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.chernarus_winter/
+            ./temp/KW_BEM_missions/KW_BEM.chernarus_winter/*: ./BasicMissions/KW_BEM.chernarus_winter/
+      description: Copy Files for Chernarus Winter
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.chernarus_winter/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map chernarus_winter
+            '%%%civilian_type%%%': european_east
+            '%%%civilian_weapons%%%': "1"
+            '%%%civilian_weapons_chance%%%': "45"
+            '%%%loadout_start_equipped%%%': "0"
+            '%%%loadout_type%%%': bw-forest
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map chernarus_winter'
+            '%%%onLoadName%%%': KW Basic Event Map chernarus_winter
+      description: Customize description.ext for chernarus_winter
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.Enoch/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.Enoch/
+            ./temp/KW_BEM_missions/KW_BEM.Enoch/*: ./BasicMissions/KW_BEM.Enoch/
+      description: Copy Files for Livonia
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.Enoch/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map Enoch
+            '%%%civilian_type%%%': european_east
+            '%%%civilian_weapons%%%': "0"
+            '%%%civilian_weapons_chance%%%': "0"
+            '%%%loadout_start_equipped%%%': "0"
+            '%%%loadout_type%%%': ksk-forest
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map Enoch'
+            '%%%onLoadName%%%': KW Basic Event Map Enoch
+      description: Customize description.ext for Enoch
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.lythium/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.lythium/
+            ./temp/KW_BEM_missions/KW_BEM.lythium/*: ./BasicMissions/KW_BEM.lythium/
+      description: Copy Files for Lythium
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.lythium/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map lythium
+            '%%%civilian_type%%%': eastern
+            '%%%civilian_weapons%%%': "1"
+            '%%%civilian_weapons_chance%%%': "55"
+            '%%%loadout_start_equipped%%%': "1"
+            '%%%loadout_type%%%': ksk-desert
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map lythium'
+            '%%%onLoadName%%%': KW Basic Event Map lythium
+      description: Customize description.ext for lythium
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.malden/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.malden/
+            ./temp/KW_BEM_missions/KW_BEM.malden/*: ./BasicMissions/KW_BEM.malden/
+      description: Copy Files for Malden
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.malden/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map malden
+            '%%%civilian_type%%%': european_east
+            '%%%civilian_weapons%%%': "1"
+            '%%%civilian_weapons_chance%%%': "15"
+            '%%%loadout_start_equipped%%%': "0"
+            '%%%loadout_type%%%': seals-forest
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map malden'
+            '%%%onLoadName%%%': KW Basic Event Map malden
+      description: Customize description.ext for malden
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.Mountains_ACR/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.Mountains_ACR/
+            ./temp/KW_BEM_missions/KW_BEM.Mountains_ACR/*: ./BasicMissions/KW_BEM.Mountains_ACR/
+      description: Copy Files for Takistan Mountains
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.Mountains_ACR/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map Mountains_ACR
+            '%%%civilian_type%%%': eastern
+            '%%%civilian_weapons%%%': "1"
+            '%%%civilian_weapons_chance%%%': "50"
+            '%%%loadout_start_equipped%%%': "1"
+            '%%%loadout_type%%%': ksk-desert
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map Mountains_ACR'
+            '%%%onLoadName%%%': KW Basic Event Map Mountains_ACR
+      description: Customize description.ext for Mountains_ACR
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.porto/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.porto/
+            ./temp/KW_BEM_missions/KW_BEM.porto/*: ./BasicMissions/KW_BEM.porto/
+      description: Copy Files for Porto
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.porto/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map porto
+            '%%%civilian_type%%%': european_west
+            '%%%civilian_weapons%%%': "1"
+            '%%%civilian_weapons_chance%%%': "15"
+            '%%%loadout_start_equipped%%%': "0"
+            '%%%loadout_type%%%': bw-forest
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map porto'
+            '%%%onLoadName%%%': KW Basic Event Map porto
+      description: Customize description.ext for porto
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.ProvingGrounds_PMC/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.ProvingGrounds_PMC/
+            ./temp/KW_BEM_missions/KW_BEM.ProvingGrounds_PMC/*: ./BasicMissions/KW_BEM.ProvingGrounds_PMC/
+      description: Copy Files for Proving Grounds
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.ProvingGrounds_PMC/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map ProvingGrounds_PMC
+            '%%%civilian_type%%%': european_east
+            '%%%civilian_weapons%%%': "0"
+            '%%%civilian_weapons_chance%%%': "0"
+            '%%%loadout_start_equipped%%%': "0"
+            '%%%loadout_type%%%': bw-forest
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map ProvingGrounds_PMC'
+            '%%%onLoadName%%%': KW Basic Event Map ProvingGrounds_PMC
+      description: Customize description.ext for ProvingGrounds_PMC
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.sara_dbe1/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.sara_dbe1/
+            ./temp/KW_BEM_missions/KW_BEM.sara_dbe1/*: ./BasicMissions/KW_BEM.sara_dbe1/
+      description: Copy Files for Sahrani
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.sara_dbe1/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map sara_dbe1
+            '%%%civilian_type%%%': eastern
+            '%%%civilian_weapons%%%': "1"
+            '%%%civilian_weapons_chance%%%': "65"
+            '%%%loadout_start_equipped%%%': "0"
+            '%%%loadout_type%%%': usmc-desert
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map sara_dbe1'
+            '%%%onLoadName%%%': KW Basic Event Map sara_dbe1
+      description: Customize description.ext for sara_dbe1
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.stratis/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.stratis/
+            ./temp/KW_BEM_missions/KW_BEM.stratis/*: ./BasicMissions/KW_BEM.stratis/
+      description: Copy Files for Stratis
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.stratis/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map stratis
+            '%%%civilian_type%%%': european_east
+            '%%%civilian_weapons%%%': "1"
+            '%%%civilian_weapons_chance%%%': "45"
+            '%%%loadout_start_equipped%%%': "0"
+            '%%%loadout_type%%%': bw-forest
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map stratis'
+            '%%%onLoadName%%%': KW Basic Event Map stratis
+      description: Customize description.ext for stratis
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.takistan/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.takistan/
+            ./temp/KW_BEM_missions/KW_BEM.takistan/*: ./BasicMissions/KW_BEM.takistan/
+      description: Copy Files for Takistan
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.takistan/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map takistan
+            '%%%civilian_type%%%': eastern
+            '%%%civilian_weapons%%%': "1"
+            '%%%civilian_weapons_chance%%%': "65"
+            '%%%loadout_start_equipped%%%': "0"
+            '%%%loadout_type%%%': bw-desert
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map takistan'
+            '%%%onLoadName%%%': KW Basic Event Map takistan
+      description: Customize description.ext for takistan
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.tanoa/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.tanoa/
+            ./temp/KW_BEM_missions/KW_BEM.tanoa/*: ./BasicMissions/KW_BEM.tanoa/
+      description: Copy Files for Tanoa
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.tanoa/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map tanoa
+            '%%%civilian_type%%%': tanoan
+            '%%%civilian_weapons%%%': "1"
+            '%%%civilian_weapons_chance%%%': "5"
+            '%%%loadout_start_equipped%%%': "0"
+            '%%%loadout_type%%%': usmc-forest
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map tanoa'
+            '%%%onLoadName%%%': KW Basic Event Map tanoa
+      description: Customize description.ext for tanoa
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.tem_anizay/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.tem_anizay/
+            ./temp/KW_BEM_missions/KW_BEM.tem_anizay/*: ./BasicMissions/KW_BEM.tem_anizay/
+      description: Copy Files for Anizay
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.tem_anizay/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map tem_anizay
+            '%%%civilian_type%%%': eastern
+            '%%%civilian_weapons%%%': "1"
+            '%%%civilian_weapons_chance%%%': "65"
+            '%%%loadout_start_equipped%%%': "0"
+            '%%%loadout_type%%%': bw-desert
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map tem_anizay'
+            '%%%onLoadName%%%': KW Basic Event Map tem_anizay
+      description: Customize description.ext for tem_anizay
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.gm_weferlingen_summer/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.gm_weferlingen_summer/
+            ./temp/KW_BEM_missions/KW_BEM.gm_weferlingen_summer/*: ./BasicMissions/KW_BEM.gm_weferlingen_summer/
+      description: Copy Files for Weferlingen Summer
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.gm_weferlingen_summer/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map gm_weferlingen_summer
+            '%%%civilian_type%%%': european_east
+            '%%%civilian_weapons%%%': "0"
+            '%%%civilian_weapons_chance%%%': "0"
+            '%%%loadout_start_equipped%%%': "0"
+            '%%%loadout_type%%%': bw-forest
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map gm_weferlingen_summer'
+            '%%%onLoadName%%%': KW Basic Event Map gm_weferlingen_summer
+      description: Customize description.ext for gm_weferlingen_summer
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.vt7/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.vt7/
+            ./temp/KW_BEM_missions/KW_BEM.vt7/*: ./BasicMissions/KW_BEM.vt7/
+      description: Copy Files for Virolahti
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.vt7/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map vt7
+            '%%%civilian_type%%%': european_east
+            '%%%civilian_weapons%%%': "1"
+            '%%%civilian_weapons_chance%%%': "25"
+            '%%%loadout_start_equipped%%%': "0"
+            '%%%loadout_type%%%': bw-forest
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map vt7'
+            '%%%onLoadName%%%': KW Basic Event Map vt7
+      description: Customize description.ext for vt7
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.Woodland_ACR/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.Woodland_ACR/
+            ./temp/KW_BEM_missions/KW_BEM.Woodland_ACR/*: ./BasicMissions/KW_BEM.Woodland_ACR/
+      description: Copy Files for Bystrica
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.Woodland_ACR/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map Woodland_ACR
+            '%%%civilian_type%%%': european_east
+            '%%%civilian_weapons%%%': "1"
+            '%%%civilian_weapons_chance%%%': "15"
+            '%%%loadout_start_equipped%%%': "1"
+            '%%%loadout_type%%%': bw-forest
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map Woodland_ACR'
+            '%%%onLoadName%%%': KW Basic Event Map Woodland_ACR
+      description: Customize description.ext for Woodland_ACR
+      ignoreError: false
+    - type: cp
+      parameter:
+        ignoreDotFiles: true
+        src_dest:
+            ./temp/KW_BEM_BasicScripts/*: ./BasicMissions/KW_BEM.zargabad/kw/
+            ./temp/KW_BEM_Missions/BasicFiles/*: ./BasicMissions/KW_BEM.zargabad/
+            ./temp/KW_BEM_missions/KW_BEM.zargabad/*: ./BasicMissions/KW_BEM.zargabad/
+      description: Copy Files for Zargabad
+      ignoreError: false
+    - type: replaceText
+      parameter:
+        destination: ./BasicMissions/KW_BEM.zargabad/description.ext
+        map:
+            '%%%briefingName%%%': KW Basic Event Map zargabad
+            '%%%civilian_type%%%': eastern
+            '%%%civilian_weapons%%%': "1"
+            '%%%civilian_weapons_chance%%%': "60"
+            '%%%loadout_start_equipped%%%': "0"
+            '%%%loadout_type%%%': usmc-desert
+            '%%%loadout_whitelist_enabled%%%': "1"
+            '%%%onLoadMission%%%': '[CO44] Kommando Wildsau Basic Event Map zargabad'
+            '%%%onLoadName%%%': KW Basic Event Map zargabad
+      description: Customize description.ext for zargabad
+      ignoreError: false
