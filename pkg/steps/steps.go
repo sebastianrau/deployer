@@ -17,7 +17,9 @@ type StepTypes string
 const (
 	CreateFolderType  StepTypes = "mkdir"
 	CopyType          StepTypes = "cp"
+	CopylegacyType    StepTypes = "copy"
 	DeleteType        StepTypes = "rm"
+	DeleteLegacyType  StepTypes = "delete"
 	ReplaceTextType   StepTypes = "replaceText"
 	FileWriterType    StepTypes = "fileWriter"
 	ExecType          StepTypes = "exec"
@@ -34,11 +36,6 @@ type DeployerStep struct {
 	// optinal
 	Description string `json:"description" yaml:"description"`
 	IgnoreError bool   `json:"ignoreError" yaml:"ignoreError"`
-}
-
-// Exec implements ExceutableStep
-func (s DeployerStep) Exec(v io.Writer) error {
-	return s.Exec(v)
 }
 
 type JsonConfig struct {
@@ -83,9 +80,9 @@ func UnmarshalConfigTemplate(templ string, data string) (*JsonConfig, error) {
 
 		case CreateFolderType:
 			s.Parameter, err = UnmarschalCreatefolder(s)
-		case CopyType:
+		case CopyType, CopylegacyType:
 			s.Parameter, err = UnmarschalCopy(s)
-		case DeleteType:
+		case DeleteType, DeleteLegacyType:
 			s.Parameter, err = UnmarschalDelete(s)
 		case FileWriterType:
 			s.Parameter, err = UnmarschalFileWriter(s)
@@ -137,6 +134,32 @@ func (c *JsonConfig) exec(out io.Writer, verbose bool, directOut bool) error {
 
 		var err error
 		var write io.Writer
+		var ex ExceutableStep
+
+		switch StepTypes(s.Type) {
+
+		case CreateFolderType:
+			ex, err = UnmarschalCreatefolder(s)
+		case CopyType, CopylegacyType:
+			ex, err = UnmarschalCopy(s)
+		case DeleteType, DeleteLegacyType:
+			ex, err = UnmarschalDelete(s)
+		case FileWriterType:
+			ex, err = UnmarschalFileWriter(s)
+		case ReplaceTextType:
+			ex, err = UnmarschalReplaceText(s)
+		case ExecType:
+			ex, err = UnmarschalExec(s)
+		case EcecEachFileType:
+			ex, err = UnmarschalExecEach(s)
+		case GitUpdateType:
+			ex, err = UnmarschalGitUpdate(s)
+		case SubStepsType:
+			ex, err = UnmarschalSubSteps(s)
+		case CreateSymlinkType:
+			ex, err = UnmarschalCreateSymlink(s)
+		}
+
 		v := bytes.NewBufferString("")
 
 		if verbose {
@@ -148,7 +171,8 @@ func (c *JsonConfig) exec(out io.Writer, verbose bool, directOut bool) error {
 		}
 
 		fmt.Fprint(out, formatStep(s.Description, s.Type, (err != nil), 80))
-		err = s.Exec(write)
+		err = ex.Exec(write)
+
 		if err != nil && !s.IgnoreError {
 			fmt.Fprintf(out, "%v\n", err.Error())
 			return err
