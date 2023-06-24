@@ -8,24 +8,21 @@ import (
 type SubSteps struct {
 	ConfigFile  string `json:"config"`
 	DataFile    string `json:"data"`
-	Out         io.Writer
-	VerboseFlag bool
+	VerboseFlag bool   `json:"verbose"`
 }
 
-func UnmarschalSubSteps(step DeployerStep, out io.Writer, verboseFlag bool) (*SubSteps, error) {
-	mkdir := SubSteps{}
+func UnmarschalSubSteps(step DeployerStep) (*SubSteps, error) {
+	subSteps := SubSteps{}
 	b, _ := json.Marshal(step.Parameter)
-	err := json.Unmarshal(b, &mkdir)
-	mkdir.Out = out
-	mkdir.VerboseFlag = verboseFlag
+	err := json.Unmarshal(b, &subSteps)
 
-	return &mkdir, err
+	return &subSteps, err
 }
 
 func (s *SubSteps) Exec(v io.Writer) error {
-	config, err := UnmarshalConfigTemplate(s.ConfigFile, s.DataFile)
+	subSteps, err := UnmarshalConfigTemplate(s.ConfigFile, s.DataFile)
 	if err != nil {
 		return err
 	}
-	return config.Exceute(s.Out, s.VerboseFlag)
+	return subSteps.Exceute(v, s.VerboseFlag)
 }

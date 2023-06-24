@@ -6,7 +6,6 @@ import (
 	"os"
 	"strings"
 
-	"github.com/sebastianRau/deployer/pkg/templating"
 	"github.com/sebastianRau/deployer/pkg/verbose"
 )
 
@@ -28,27 +27,6 @@ func ReplaceAll(src string, dest string, repalcements map[string]string, v io.Wr
 	verbose.Fprintf(v, "writing  file: %s\n", dest)
 	err = writeFile(dest, strings.Join(lines, "\n"))
 
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func ParseTemplate(src string, data string, dest string, v io.Writer) error {
-	verbose.Fprintf(v, "parsing template started\n")
-	verbose.Fprintf(v, "read template: %s\n", src)
-	verbose.Fprintf(v, "read data: %s\n", data)
-
-	lines, err := templating.ParseTemplateJsonData(src, data)
-	if err != nil {
-		return err
-	}
-
-	verbose.Fprintf(v, "got %d lines\n", strings.Count(lines, "\n"))
-
-	verbose.Fprintf(v, "writing file: %s\n", dest)
-	err = writeFile(dest, lines)
 	if err != nil {
 		return err
 	}

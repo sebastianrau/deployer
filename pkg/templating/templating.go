@@ -10,7 +10,7 @@ import (
 	"os"
 	"text/template"
 
-	yaml "gopkg.in/yaml.v2"
+	yaml "gopkg.in/yaml.v3"
 )
 
 func add(a, b int) int {
@@ -38,28 +38,28 @@ func arrayJoin(array []interface{}, separator string, addLast bool) string {
 	return buf.String()
 }
 
-func ParseTemplateJsonData(templ string, data string) (string, error) {
+func ParseTemplateJsonData(templ string, data string) ([]byte, error) {
 	m := map[string]interface{}{}
 
 	if data != "" {
 		// parse data json file to map
 		dataFile, err := os.Open(data)
 		if err != nil {
-			return "", err
+			return []byte(""), err
 		}
 
 		dataBytes, _ := io.ReadAll(dataFile)
 		if err := json.Unmarshal(dataBytes, &m); err != nil {
 			err := yaml.Unmarshal(dataBytes, &m)
 			if err != nil {
-				return "", err
+				return []byte(""), err
 			}
 		}
 
 	} else {
 		// parse empty json as data
 		if err := json.Unmarshal([]byte("{ }"), &m); err != nil {
-			return "", err
+			return []byte(""), err
 		}
 	}
 
@@ -77,13 +77,14 @@ func ParseTemplateJsonData(templ string, data string) (string, error) {
 
 	t, err := template.New("").Funcs(funcMap).Parse(string(templateBytes))
 	if err != nil {
-		return "", err
+		return []byte(""), err
 	}
 
 	var tpl bytes.Buffer
 	if err := t.Execute(&tpl, m); err != nil {
-		return "", err
+		fmt.Println("exec error")
+		return []byte(""), err
 	}
 
-	return tpl.String(), nil
+	return tpl.Bytes(), nil
 }

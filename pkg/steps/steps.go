@@ -5,8 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"os"
 
 	"github.com/sebastianRau/deployer/pkg/templating"
+
+	yaml "gopkg.in/yaml.v3"
 )
 
 type StepTypes string
@@ -26,15 +29,15 @@ const (
 
 type DeployerStep struct {
 	// mandatory
-	Type      string      `json:"type"`
-	Parameter interface{} `json:"parameter"`
+	Type      string      `json:"type" yaml:"type"`
+	Parameter interface{} `json:"parameter" yaml:"parameter"`
 	// optinal
-	Description string `json:"description"`
-	IgnoreError bool   `json:"ignoreError"`
+	Description string `json:"description" yaml:"description"`
+	IgnoreError bool   `json:"ignoreError" yaml:"ignoreError"`
 }
 
 type JsonConfig struct {
-	Steps []DeployerStep `json:"steps"`
+	Steps []DeployerStep `json:"steps" yaml:"steps"`
 }
 
 type ExceutableStep interface {
@@ -44,29 +47,65 @@ type ExceutableStep interface {
 func UnmarshalConfigTemplate(templ string, data string) (*JsonConfig, error) {
 	jsonResult := JsonConfig{}
 
+	fmt.Println("Reading File")
 	jsonConfigFile, err := templating.ParseTemplateJsonData(templ, data)
 	if err != nil {
-		return &jsonResult, err
+		fmt.Println(err.Error())
+		return nil, err
 	}
 
-	if err := json.Unmarshal([]byte(jsonConfigFile), &jsonResult); err != nil {
-		return &jsonResult, err
+	err = json.Unmarshal(jsonConfigFile, &jsonResult)
+	if err != nil {
+		err = yaml.Unmarshal(jsonConfigFile, &jsonResult)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	if jsonResult.Steps == nil {
-		return &jsonResult, fmt.Errorf("No Steps defined")
+		return nil, fmt.Errorf("No Steps defined")
 	}
 
 	for i, s := range jsonResult.Steps {
 		if s.Type == "" {
-			return &jsonResult, fmt.Errorf("No Type for Step #%d defined", i)
+			return nil, fmt.Errorf("No Type for Step #%d defined", i)
 		}
 		if s.Parameter == nil {
-			return &jsonResult, fmt.Errorf("No Parameter for Step #%d (type: %s) defined", i, s.Type)
+			return nil, fmt.Errorf("No Parameter for Step #%d (type: %s) defined", i, s.Type)
+		}
+
+		switch StepTypes(s.Type) {
+
+		case CreateFolderType:
+			s.Parameter, err = UnmarschalCreatefolder(s)
+		case CopyType:
+			s.Parameter, err = UnmarschalCopy(s)
+		case DeleteType:
+			s.Parameter, err = UnmarschalDelete(s)
+		case FileWriterType:
+			s.Parameter, err = UnmarschalFileWriter(s)
+		case ReplaceTextType:
+			s.Parameter, err = UnmarschalReplaceText(s)
+		case ExecType:
+			s.Parameter, err = UnmarschalExec(s)
+		case EcecEachFileType:
+			s.Parameter, err = UnmarschalExecEach(s)
+		case GitUpdateType:
+			s.Parameter, err = UnmarschalGitUpdate(s)
+		case SubStepsType:
+			s.Parameter, err = UnmarschalSubSteps(s)
+		case CreateSymlinkType:
+			s.Parameter, err = UnmarschalCreateSymlink(s)
+		default:
+			err = fmt.Errorf("cant parse type: %s", s.Type)
+		}
+		if err != nil {
+			fmt.Printf("Step: %v", s.Parameter)
+			return nil, fmt.Errorf("error in step %s: %s", s.Description, err.Error())
 		}
 	}
 
-	return &jsonResult, err
+	return &jsonResult, nil
 }
 
 func (c *JsonConfig) Marshal() (string, error) {
@@ -93,34 +132,6 @@ func (c *JsonConfig) exec(out io.Writer, verbose bool, directOut bool) error {
 
 		var ex ExceutableStep
 		var err error
-
-		switch StepTypes(s.Type) {
-
-		case CreateFolderType:
-			ex, err = UnmarschalCreatefolder(s)
-		case CopyType:
-			ex, err = UnmarschalCopy(s)
-		case DeleteType:
-			ex, err = UnmarschalDelete(s)
-		case FileWriterType:
-			ex, err = UnmarschalFileWriter(s)
-		case ReplaceTextType:
-			ex, err = UnmarschalReplaceText(s)
-		case ExecType:
-			ex, err = UnmarschalExec(s)
-		case EcecEachFileType:
-			ex, err = UnmarschalExecEach(s)
-		case GitUpdateType:
-			ex, err = UnmarschalGitUpdate(s)
-		case SubStepsType:
-			ex, err = UnmarschalSubSteps(s, out, verbose)
-		case CreateSymlinkType:
-			ex, err = UnmarschalCreateSymlink(s)
-
-		default:
-			err = fmt.Errorf("cant parse type: %s", s.Type)
-			ex = nil
-		}
 
 		// Exec Step
 		if ex != nil {
@@ -161,4 +172,38 @@ func formatStep(sName string, sType string, err bool, len int) string {
 	}
 
 	return fmt.Sprintf("%-*s %s\n", len, sName, result)
+}
+
+func (c *JsonConfig) WriteConfigTo(out io.Writer) error {
+	buf, err := yaml.Marshal(&c)
+	if err != nil {
+		return err
+	}
+	_, err = out.Write(buf)
+	return err
+
+}
+
+func (c *JsonConfig) WriteConfigToFile(filename string) error {
+
+	file, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	err = c.WriteConfigTo(file)
+	if err != nil {
+		return err
+	}
+	err = file.Sync()
+	if err != nil {
+		return err
+	}
+	err = file.Close()
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
