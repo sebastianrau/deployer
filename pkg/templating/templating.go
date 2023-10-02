@@ -38,6 +38,17 @@ func arrayJoin(array []interface{}, separator string, addLast bool) string {
 	return buf.String()
 }
 
+func secret(secretText string, keyFile string) string {
+	secretFile, err := os.Open(keyFile)
+	if err != nil {
+		return ""
+	}
+	defer secretFile.Close()
+
+	keyBytes, _ := io.ReadAll(secretFile)
+	return Decrypt(secretText, keyBytes)
+}
+
 func ParseTemplateJsonData(templ string, data string) ([]byte, error) {
 	m := map[string]interface{}{}
 
@@ -73,6 +84,7 @@ func ParseTemplateJsonData(templ string, data string) ([]byte, error) {
 		"isLast":    isLast,
 		"arrayjoin": arrayJoin,
 		"join":      strings.Join,
+		"secret":    secret,
 	}
 
 	t, err := template.New("").Funcs(funcMap).Parse(string(templateBytes))
