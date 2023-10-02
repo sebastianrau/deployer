@@ -52,6 +52,8 @@ a json object which contains all used varables for the template
 
 ``` arrayjoin(array []interface{}, separator string, addLast bool) string  ``` makes string out of an array, using a given separator
 
+``` secret(string encrypted, keyFile string) string  ``` decrypts a encypted string with a given key file
+
 Example:
 Add , to all except the last entry 
 ```
@@ -61,6 +63,24 @@ Add , to all except the last entry
     {{end}}
     ]
 }
+```
+
+### Secret Function
+Uses a AES256 encryption for storing secrets in data json.
+Use the secret sealer tool to generate key files and encrypt secrets
+
+````
+Data: 
+{
+    "secretFile" : "examples/secret.key",
+    "hello": "7cf65678ecda9c427fb80acb54f44e9d6eb9b0ae9ebdea6d9d73687a7642019477108f85fe45dee55f01720e94ee5aa7d48a15ce184d"
+}
+
+Template:
+"text":[
+    "This is my secret text",
+    "{{secret $.textVariable $.secretFile}}"
+]
 ```
 
 
