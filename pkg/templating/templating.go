@@ -13,6 +13,13 @@ import (
 	yaml "gopkg.in/yaml.v3"
 )
 
+type TemplateConfig struct {
+	active          bool
+	globalSecretKey []byte
+}
+
+var templateCfg TemplateConfig
+
 func add(a, b int) int {
 	return a + b
 }
@@ -39,13 +46,19 @@ func arrayJoin(array []interface{}, separator string, addLast bool) string {
 }
 
 func secret(secretText string, keyFile string) string {
-	secretFile, err := os.Open(keyFile)
-	if err != nil {
-		return ""
-	}
-	defer secretFile.Close()
+	var keyBytes []byte
 
-	keyBytes, _ := io.ReadAll(secretFile)
+	if templateCfg.active {
+		keyBytes = templateCfg.globalSecretKey
+	} else {
+		secretFile, err := os.Open(keyFile)
+		if err != nil {
+			return ""
+		}
+		defer secretFile.Close()
+		keyBytes, _ = io.ReadAll(secretFile)
+	}
+
 	return Decrypt(secretText, keyBytes)
 }
 
@@ -99,4 +112,9 @@ func ParseTemplateJsonData(templ string, data string) ([]byte, error) {
 	}
 
 	return tpl.Bytes(), nil
+}
+
+func ActivateGlobalConfig(key []byte) {
+	templateCfg.active = true
+	templateCfg.globalSecretKey = key
 }
