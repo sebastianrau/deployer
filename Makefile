@@ -1,6 +1,6 @@
 BUILD_DIR = build
 APP = deployer
-CMD= cmd/main.go
+CMD= cmd/deployer/main.go
 MC_DIR = build/bin
 LOG_DIR= build/log
 GIT_VER=$(shell git rev-parse HEAD)
