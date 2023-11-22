@@ -6,7 +6,7 @@ import (
 
 	git "github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/transport/ssh"
-	"github.com/sebastianRau/deployer/pkg/verbose"
+	"github.com/sebastianrau/deployer/pkg/verbose"
 )
 
 func UpdateKeyBytes(url string, directory string, pemBytes []byte, password string, v io.Writer) (string, bool, error) {

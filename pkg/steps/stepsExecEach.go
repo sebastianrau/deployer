@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"io"
 
-	ostools "github.com/sebastianRau/deployer/pkg/osTools"
+	ostools "github.com/sebastianrau/deployer/pkg/osTools"
 )
 
 type ExecEach struct {

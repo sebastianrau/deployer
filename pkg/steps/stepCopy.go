@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"io"
 
-	ostools "github.com/sebastianRau/deployer/pkg/osTools"
-	"github.com/sebastianRau/deployer/pkg/verbose"
+	ostools "github.com/sebastianrau/deployer/pkg/osTools"
+	"github.com/sebastianrau/deployer/pkg/verbose"
 )
 
 type Copy struct {

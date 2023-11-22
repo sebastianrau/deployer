@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 
-	gittools "github.com/sebastianRau/deployer/pkg/gitTools"
+	gittools "github.com/sebastianrau/deployer/pkg/gitTools"
 )
 
 type GitUpdate struct {

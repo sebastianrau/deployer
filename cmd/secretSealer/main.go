@@ -7,7 +7,7 @@ import (
 	"math/rand"
 	"os"
 
-	"github.com/sebastianRau/deployer/pkg/templating"
+	"github.com/sebastianrau/deployer/pkg/templating"
 )
 
 var (

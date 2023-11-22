@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/sebastianRau/deployer/pkg/verbose"
+	"github.com/sebastianrau/deployer/pkg/verbose"
 )
 
 func ReplaceAll(src string, dest string, repalcements map[string]string, v io.Writer) error {

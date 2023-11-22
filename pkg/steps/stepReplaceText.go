@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"io"
 
-	filetools "github.com/sebastianRau/deployer/pkg/fileTools"
+	filetools "github.com/sebastianrau/deployer/pkg/fileTools"
 )
 
 type ReplaceText struct {

@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/sebastianRau/deployer/pkg/steps"
+	"github.com/sebastianrau/deployer/pkg/steps"
 )
 
 var (
