@@ -1,9 +1,10 @@
-module github.com/sebastianRau/deployer
+module github.com/sebastianrau/deployer
 
 go 1.19
 
 require (
 	github.com/go-git/go-git/v5 v5.7.0
+	github.com/sebastianRau/deployer v0.1.2
 	gopkg.in/yaml.v3 v3.0.1
 )
 
