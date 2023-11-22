@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/sebastianRau/deployer/pkg/verbose"
+	"github.com/sebastianrau/deployer/pkg/verbose"
 )
 
 // Mkdir creates all given directries

@@ -7,7 +7,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/sebastianRau/deployer/pkg/templating"
+	"github.com/sebastianrau/deployer/pkg/templating"
 
 	yaml "gopkg.in/yaml.v3"
 )

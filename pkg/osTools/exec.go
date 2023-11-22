@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/sebastianRau/deployer/pkg/verbose"
+	"github.com/sebastianrau/deployer/pkg/verbose"
 )
 
 func Exec(command string, path string, v io.Writer, arg ...string) error {

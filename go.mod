@@ -1,4 +1,4 @@
-module github.com/sebastianRau/deployer
+module github.com/sebastianrau/deployer
 
 go 1.19
 
