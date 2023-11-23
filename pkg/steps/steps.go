@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/sebastianrau/deployer/pkg/templating"
+	easyconfig "github.com/sebastianrau/go-easyConfig/pkg/easyConfig"
 
 	yaml "gopkg.in/yaml.v3"
 )
@@ -46,11 +47,12 @@ type ExceutableStep interface {
 	Exec(v io.Writer) error
 }
 
-func UnmarshalConfigTemplate(templ string, data string) (*JsonConfig, error) {
+func UnmarshalConfigTemplate(templateFile string, dataFile string, encryptionFile string) (*JsonConfig, error) {
 	jsonResult := JsonConfig{}
 
 	fmt.Println("Reading File")
-	jsonConfigFile, err := templating.ParseTemplateJsonData(templ, data)
+
+	jsonConfigFile, err := templating.ParseTemplateJsonData(templateFile, dataFile)
 	if err != nil {
 		fmt.Println(err.Error())
 		return nil, err
@@ -104,6 +106,13 @@ func UnmarshalConfigTemplate(templ string, data string) (*JsonConfig, error) {
 		if err != nil {
 			fmt.Printf("Step: %v", s.Parameter)
 			return nil, fmt.Errorf("error in step %s: %s", s.Description, err.Error())
+		}
+	}
+
+	if encryptionFile != "" {
+		err = easyconfig.EncryptFromFile(encryptionFile, &jsonResult)
+		if err != nil {
+			return nil, err
 		}
 	}
 

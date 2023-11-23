@@ -6,9 +6,10 @@ import (
 )
 
 type SubSteps struct {
-	ConfigFile  string `json:"config"`
-	DataFile    string `json:"data"`
-	VerboseFlag bool   `json:"verbose"`
+	ConfigFile    string `json:"config"`
+	DataFile      string `json:"data"`
+	EncryptionKey string `json:"encryption"`
+	VerboseFlag   bool   `json:"verbose"`
 }
 
 func UnmarschalSubSteps(step DeployerStep) (*SubSteps, error) {
@@ -20,7 +21,7 @@ func UnmarschalSubSteps(step DeployerStep) (*SubSteps, error) {
 }
 
 func (s *SubSteps) Exec(v io.Writer) error {
-	subSteps, err := UnmarshalConfigTemplate(s.ConfigFile, s.DataFile)
+	subSteps, err := UnmarshalConfigTemplate(s.ConfigFile, s.DataFile, s.EncryptionKey)
 	if err != nil {
 		return err
 	}

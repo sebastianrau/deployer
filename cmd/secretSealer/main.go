@@ -3,11 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"io"
-	"math/rand"
 	"os"
 
-	"github.com/sebastianrau/deployer/pkg/templating"
+	enc "github.com/sebastianrau/go-easyConfig/pkg/encryption"
 )
 
 var (
@@ -22,52 +20,32 @@ func main() {
 	)
 	flag.Parse()
 
-	var (
-		key []byte
-	)
+	if *keyFile == "" {
+		fmt.Println("no kexfile given")
+		os.Exit(1)
+	}
 
 	if *generateKey {
-		f, err := os.OpenFile(*keyFile, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
+		err := enc.CreateKeyFile(*keyFile)
 		if err != nil {
-			panic(err)
+			fmt.Println(err.Error())
+			os.Exit(1)
 		}
-		defer f.Close()
-
-		key = GenerateKey()
-		f.Write(key)
-
+		os.Exit(0)
 	} else {
-		f, err := os.Open(*keyFile)
-		if err != nil {
-			panic(err)
+		if *text == "" {
+			fmt.Println("no text to encrypt given")
+			os.Exit(1)
 		}
-		defer f.Close()
 
-		key, err = io.ReadAll(f)
+		key, err := os.ReadFile(*keyFile)
 		if err != nil {
-			panic(err)
+			fmt.Println(err.Error())
+			os.Exit(1)
 		}
+		val, err := enc.EncryptString(*text, key)
+
+		fmt.Printf("%s: \n", *text)
+		fmt.Println(val)
 	}
-
-	enc := templating.Encrypt(*text, key)
-	dec := templating.Decrypt(enc, key)
-
-	fmt.Println(dec + ":")
-	fmt.Println(enc)
-
-}
-
-func GenerateKey() []byte {
-	n := 32
-	digits := "0123456789"
-	capLetters := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	letters := "abcdefghijklmnopqrstuvwxyz"
-
-	letterRunes := digits + capLetters + letters
-
-	b := make([]byte, n)
-	for i := range b {
-		b[i] = letterRunes[rand.Intn(len(letterRunes))]
-	}
-	return b
 }
