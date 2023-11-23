@@ -67,15 +67,15 @@ func UnmarshalConfigTemplate(templateFile string, dataFile string, encryptionFil
 	}
 
 	if jsonResult.Steps == nil {
-		return nil, fmt.Errorf("No Steps defined")
+		return nil, fmt.Errorf("no steps defined")
 	}
 
 	for i, s := range jsonResult.Steps {
 		if s.Type == "" {
-			return nil, fmt.Errorf("No Type for Step #%d defined", i)
+			return nil, fmt.Errorf("no type for step #%d defined", i)
 		}
 		if s.Parameter == nil {
-			return nil, fmt.Errorf("No Parameter for Step #%d (type: %s) defined", i, s.Type)
+			return nil, fmt.Errorf("no parameter for step #%d (type: %s) defined", i, s.Type)
 		}
 
 		switch StepTypes(s.Type) {
