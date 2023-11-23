@@ -110,7 +110,7 @@ func UnmarshalConfigTemplate(templateFile string, dataFile string, encryptionFil
 	}
 
 	if encryptionFile != "" {
-		err = easyconfig.EncryptFromFile(encryptionFile, &jsonResult)
+		err = easyconfig.DecryptFromFile(encryptionFile, &jsonResult)
 		if err != nil {
 			return nil, err
 		}

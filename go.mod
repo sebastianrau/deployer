@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/go-git/go-git/v5 v5.10.0
-	github.com/sebastianrau/go-easyConfig v0.1.1
+	github.com/sebastianrau/go-easyConfig v0.1.2
 	gopkg.in/yaml.v3 v3.0.1
 )
 
