@@ -21,7 +21,10 @@ help:
 	@echo "  app.darwinArm  build app for osx arm64"
 	@echo "  app.linux64    build app for linux arm64"
 	@echo ""
-	@echo "  lint           go linter"
+	@echo "  tool            build all sealer tools for all os"
+	@echo "  tool.darwin64   build sealer tool for osx64"
+	@echo "  tool.darwinArm  build sealer tool for osx arm64"
+	@echo "  tool.linux64    build sealer tool for linux arm64"
 	@echo ""
 	@echo "  clean          remove dut binarys"
 	@echo "  distclean       remove build folder"
@@ -65,11 +68,9 @@ tool.darwinArm:
 tool.linux64:
 	GOOS=linux GOARCH=amd64 go build ${LDFLAGS} -o ${BUILD_DIR}/${APP_TOOL}-linux -v ${CMD_TOOL}
 
-
-lint:
-	golint -set_exit_status $(shell go list ./...)
-
 clean:
-	-rm -f ${BUILD_DIR}/${DUT}-*
+	rm -f ${BUILD_DIR}/${APP}*
+	rm -f ${BUILD_DIR}/${APP_TOOL}*
+
 distclean:
 	rm -rf ./build
